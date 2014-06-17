@@ -30,6 +30,7 @@ private var angleVelocity = 0.0;
 private var snap = false;
 private var controller : ThirdPersonController;
 private var targetHeight = 100000.0; 
+var debugdraw = false;
 
 function Awake ()
 {
@@ -83,9 +84,11 @@ function Apply (dummyTarget : Transform, dummyCenter : Vector3)
 	
 	var targetCenter = _target.position + centerOffset;
 	var targetHead = _target.position + headOffset;
-
-//	DebugDrawStuff();
-
+	
+	if (debugdraw)
+	{
+		DebugDrawStuff();
+	}
 	// Calculate the current & target rotation angles
 	var originalTargetAngle = _target.eulerAngles.y;
 	var currentAngle = cameraTransform.eulerAngles.y;
