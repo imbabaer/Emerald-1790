@@ -77,7 +77,6 @@ public class ClickToMove : MonoBehaviour
   {
     if(Vector3.Distance(transform.position, m_Position) > 1)
     {
-      Debug.Log(transform.position);
       m_CharController.SimpleMove(transform.forward * m_Speed);
     }
   }
