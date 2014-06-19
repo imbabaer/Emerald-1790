@@ -6,9 +6,14 @@ public class ClickToMove : MonoBehaviour
   public float m_WalkSpeed;
   public float m_RunSpeed;
   public CharacterController m_CharController;
+  public AnimationClip m_AniWalk;
+  public AnimationClip m_AniIdle;
+  public AnimationClip m_AniRun;
+  private AnimationClip m_CurrentWalkAni;
   private float m_Speed;
   private Vector3 m_Position;
   private bool m_Walk;
+
 
 
   // Use this for initialization
@@ -23,11 +28,13 @@ public class ClickToMove : MonoBehaviour
   { 
     if(Input.GetKey(KeyCode.LeftShift))
     {
-      m_Speed = m_RunSpeed;      
+      m_Speed = m_RunSpeed;  
+      m_CurrentWalkAni = m_AniRun;
     }
     else
     {
       m_Speed = m_WalkSpeed;
+      m_CurrentWalkAni = m_AniWalk;      
     }
        
     if(Input.GetMouseButton(0))
@@ -35,6 +42,7 @@ public class ClickToMove : MonoBehaviour
       if(Input.GetKey(KeyCode.LeftControl))
       {
         m_Walk = false;
+        animation.Play(m_AniIdle.name);
       }
       else
       {
@@ -50,6 +58,10 @@ public class ClickToMove : MonoBehaviour
     {
       moveToPosition();
     }
+    else
+    {
+    }
+             
   }
 
   void locatePosition()
@@ -75,9 +87,14 @@ public class ClickToMove : MonoBehaviour
 
   void moveToPosition()
   {
-    if(Vector3.Distance(transform.position, m_Position) > 1)
+    if(Vector3.Distance(transform.position, m_Position) > 1.1 )
     {
       m_CharController.SimpleMove(transform.forward * m_Speed);
+      animation.Play(m_CurrentWalkAni.name);
+    }
+    else
+    {
+      animation.Play(m_AniIdle.name);
     }
   }
 
