@@ -41,11 +41,11 @@ public class IsoCam : MonoBehaviour {
 
     m_Distance = Mathf.Clamp(m_Distance, m_MinDistance, m_MaxDistance);
 
-    Vector3 oldCamPos = transform.forward;
+    Vector3 viewDir = transform.forward;
 
-    oldCamPos *= (-m_Distance);
+    viewDir *= (-m_Distance);
     
-    Vector3 newPos = m_Target.position + oldCamPos;
+    Vector3 newPos = m_Target.position + viewDir;
 
     newPos.y = m_Target.position.y + m_Distance * m_HeightFactor;
     transform.position = newPos;
