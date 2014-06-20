@@ -50,6 +50,7 @@
      <Compile Include="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\Own Scripts\ClickToMove.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\Own Scripts\IsoCam.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\Own Scripts\Mob.cs" />
      <Compile Include="Assets\Standard Assets\Water (Basic)\Sources\Scripts\WaterSimple.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />

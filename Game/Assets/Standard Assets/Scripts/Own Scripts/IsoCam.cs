@@ -10,7 +10,7 @@ public class IsoCam : MonoBehaviour {
   public float m_RotationDamping;
   public float m_HeightFactor;
   public float m_DeltaZoom;
-  public float m_RotationStep;
+  public float m_RotationSpeed;
 
   private float m_MinDistance;
   private float m_MaxDistance;
@@ -22,42 +22,41 @@ public class IsoCam : MonoBehaviour {
     m_MaxDistance = 20.0f;
     m_HeightDamping = 2.0f;
     m_RotationDamping = 3.0f;
+
+    if(0 == m_RotationSpeed)
+    {
+      m_RotationSpeed = 200.0f;
+    }
   }
   
   // Update is called once per frame
   void Update () 
   {
+    //zoom in and out with mousewheel
     if(Input.GetAxis("Mouse ScrollWheel") < 0) // back
     {
-      Debug.Log("BACK");
       m_Distance += m_DeltaZoom;
     }
     else
     if(Input.GetAxis("Mouse ScrollWheel") > 0) // forward
     {
-      Debug.Log("FORWARD");
       m_Distance -= m_DeltaZoom;
     }
 
+    //rotate with pressed mousewheel
+    if (Input.GetMouseButton(2))
+    {
+      transform.RotateAround(m_Target.position, Vector3.up, Input.GetAxis("Mouse X")*m_RotationSpeed * Time.deltaTime);
+    }
+    //clamp distance if out of the borders
     m_Distance = Mathf.Clamp(m_Distance, m_MinDistance, m_MaxDistance);
-
+    //get view direction of the camera
     Vector3 viewDir = transform.forward;
-
     viewDir *= (-m_Distance);
-    
+    //calculate new position
     Vector3 newPos = m_Target.position + viewDir;
-
     newPos.y = m_Target.position.y + m_Distance * m_HeightFactor;
+    //set new position
     transform.position = newPos;
-
-    if(Input.GetKey(KeyCode.LeftArrow))
-    {
-      transform.RotateAround(m_Target.position, Vector3.up, m_RotationStep * Time.deltaTime);
-    }
-    else if(Input.GetKey(KeyCode.RightArrow))
-    {
-      transform.RotateAround(m_Target.position, Vector3.up, -m_RotationStep * Time.deltaTime);
-    }
-
   }
 }
