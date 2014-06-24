@@ -10,7 +10,10 @@ public class IsoCam : MonoBehaviour {
   public float m_RotationDamping;
   public float m_HeightFactor;
   public float m_DeltaZoom;
+  public float m_DeltaZoomGamepad;
   public float m_RotationSpeed;
+  public float m_RotationSpeedGamepad;
+
 
   private float m_MinDistance;
   private float m_MaxDistance;
@@ -32,22 +35,39 @@ public class IsoCam : MonoBehaviour {
   // Update is called once per frame
   void Update () 
   {
+    //keyboard input
     //zoom in and out with mousewheel
-    if(Input.GetAxis("Mouse ScrollWheel") < 0) // back
+    if(Input.GetAxis("Mouse ScrollWheel") < 0 )// back
     {
       m_Distance += m_DeltaZoom;
     }
-    else
-    if(Input.GetAxis("Mouse ScrollWheel") > 0) // forward
+    else if(Input.GetAxis("Mouse ScrollWheel") > 0 ) // forward
     {
       m_Distance -= m_DeltaZoom;
     }
-
     //rotate with pressed mousewheel
-    if (Input.GetMouseButton(2))
+    if (Input.GetMouseButton(2)  )
     {
-      transform.RotateAround(m_Target.position, Vector3.up, Input.GetAxis("Mouse X")*m_RotationSpeed * Time.deltaTime);
+      float delta = Input.GetAxis("Mouse X");
+      transform.RotateAround(m_Target.position, Vector3.up, delta*m_RotationSpeed * Time.deltaTime);
     }
+
+
+    // gamepad input
+    if(Input.GetAxis("Vertical")<0)// back
+    {
+      m_Distance += m_DeltaZoomGamepad;
+    }
+    else if(Input.GetAxis("Vertical")>0) // forward
+    {
+      m_Distance -= m_DeltaZoomGamepad;
+    }
+    if(Input.GetAxis("Horizontal")>0 || Input.GetAxis("Horizontal")<0)
+    {
+      float delta = Input.GetAxis("Horizontal");
+      transform.RotateAround(m_Target.position, Vector3.up, delta*m_RotationSpeedGamepad * Time.deltaTime);
+    }
+
     //clamp distance if out of the borders
     m_Distance = Mathf.Clamp(m_Distance, m_MinDistance, m_MaxDistance);
     //get view direction of the camera

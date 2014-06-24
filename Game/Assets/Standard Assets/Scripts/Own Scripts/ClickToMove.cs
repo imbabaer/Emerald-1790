@@ -26,7 +26,7 @@ public class ClickToMove : MonoBehaviour
   // Update is called once per frame
   void Update()
   { 
-    if(Input.GetKey(KeyCode.LeftShift))
+    if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Joystick1Button4))
     {
       m_Speed = m_RunSpeed;  
       m_CurrentWalkAni = m_AniRun;
@@ -37,9 +37,9 @@ public class ClickToMove : MonoBehaviour
       m_CurrentWalkAni = m_AniWalk;      
     }
        
-    if(Input.GetMouseButton(0))
+    if(Input.GetMouseButton(0) || Input.GetKey(KeyCode.Joystick1Button0))
     {
-      if(Input.GetKey(KeyCode.LeftControl))
+      if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.Joystick1Button5))
       {
         m_Walk = false;
         animation.Play(m_AniIdle.name);
