@@ -78,5 +78,6 @@ public class IsoCam : MonoBehaviour {
     newPos.y = m_Target.position.y + m_Distance * m_HeightFactor;
     //set new position
     transform.position = newPos;
+    transform.LookAt(m_Target.position);
   }
 }
